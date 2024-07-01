@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "197692663860",
+    "project_id": "pay-note-fec21",
+    "storage_bucket": "pay-note-fec21.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197692663860:android:07a5e8fbe95af9fee10261",
+        "android_client_info": {
+          "package_name": "com.example.pay_note"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfnWIWoe5Lg_DFyBLD6wnTVxJfF9Aa7S8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
