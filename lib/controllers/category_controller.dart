@@ -177,7 +177,6 @@ class CategoryController extends GetxController {
       }
 
       // reload 
-      await getUserCategories();
       _stateController.deleteTransactionsByCategory(category: category);
       _transactionController.getTransactionsForSelectedDate();
       _stateController.fetchTransactionsByMonthAndYear();
@@ -220,6 +219,10 @@ class CategoryController extends GetxController {
           incomeCategoryOptions[index] = newCategory;
         }
       }
+
+      // reload
+      _transactionController.getTransactionsForSelectedDate();
+      _stateController.fetchTransactionsByMonthAndYear();
 
       showMessage('category updated successfully'.tr, Colors.blue.shade900);
     } catch (e) {

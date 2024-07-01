@@ -67,9 +67,9 @@ class ExcelController extends GetxController {
         sheet.getRangeByIndex(rowIndex, 2).setText(transaction.description ?? '');
         sheet.getRangeByIndex(rowIndex, 3).setNumber(transaction.amount ?? 0.0);
         sheet.getRangeByIndex(rowIndex, 4).setDateTime(transaction.date ?? DateTime.now());
-        sheet.getRangeByIndex(rowIndex, 5).setText(transaction.currencyType ?? '');
+        sheet.getRangeByIndex(rowIndex, 5).setText(transaction.currencyType?.toUpperCase() ?? '');
         sheet.getRangeByIndex(rowIndex, 6).setText(transaction.type ?? '');
-        sheet.getRangeByIndex(rowIndex, 7).setText(transaction.category ?? '');
+        sheet.getRangeByIndex(rowIndex, 7).setText(transaction.category?.toUpperCase() ?? '');
         rowIndex++;
       }
 

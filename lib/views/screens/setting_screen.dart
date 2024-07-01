@@ -47,10 +47,7 @@ class Settingscreen extends StatelessWidget {
                 Get.to(()=> ProfileScreen(user: _userController.currentUser!));
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 15.0,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   color: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor.withOpacity(0.1),
@@ -71,15 +68,15 @@ class Settingscreen extends StatelessWidget {
                             child: CachedNetworkImage(
                               fit: BoxFit.cover,
                               imageUrl: _userController.currentUser?.profilePhotoUrl ?? '',
-                              height: 50.0,
-                              width: 50.0,
+                              height: 45.0,
+                              width: 45.0,
                               placeholder: (context, url) {
                                 return Center(
                                   child: LoadingAnimationWidget.prograssiveDots(
                                     color: _themeModeController.isDark
                                       ? Colors.white
                                       : Theme.of(context).primaryColor,
-                                    size: 20.0,
+                                    size: 18.0,
                                   ),
                                 );
                               },
@@ -87,6 +84,7 @@ class Settingscreen extends StatelessWidget {
                                 return const Center(
                                   child: Icon(
                                     Icons.error_outline,
+                                    size: 20.0,
                                     color: Colors.pink,
                                   ),
                                 );
@@ -103,7 +101,7 @@ class Settingscreen extends StatelessWidget {
                             Text(
                               _userController.currentUser?.name ?? '',
                               style: GoogleFonts.kantumruyPro(
-                                fontSize: 18.0,
+                                fontSize: 17.0,
                                 fontWeight: FontWeight.bold,
                                 color: _themeModeController.isDark? Colors.white : Theme.of(context).primaryColor,
                               ),
@@ -123,6 +121,7 @@ class Settingscreen extends StatelessWidget {
                     // right content
                     Icon(
                       Icons.arrow_forward_rounded,
+                      size: 20.0,
                       color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                     )
                   ],
@@ -137,10 +136,7 @@ class Settingscreen extends StatelessWidget {
                 Get.to(()=> ViewCategoryScreen());
               },
               child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20.0,
-                  vertical: 15.0,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   color: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor.withOpacity(0.1),
@@ -156,9 +152,10 @@ class Settingscreen extends StatelessWidget {
                         // catgori icons
                         CircleAvatar(
                           backgroundColor: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor.withOpacity(0.1),
-                          radius: 25.0,
+                          radius: 23.0,
                           child: Icon(
                             Icons.category_outlined,
+                            size: 20.0,
                             color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                           ),
                         ),
@@ -171,7 +168,7 @@ class Settingscreen extends StatelessWidget {
                             Text(
                               'category'.tr,
                               style: GoogleFonts.kantumruyPro(
-                                fontSize: 18.0,
+                                fontSize: 17.0,
                                 fontWeight: FontWeight.bold,
                                 color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                               ),
@@ -191,6 +188,7 @@ class Settingscreen extends StatelessWidget {
                     // right content
                     Icon(
                       Icons.arrow_forward_rounded,
+                      size: 20.0,
                       color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                     )
                   ],
@@ -214,10 +212,7 @@ class Settingscreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                      vertical: 15.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       color: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor.withOpacity(0.1),
@@ -233,11 +228,11 @@ class Settingscreen extends StatelessWidget {
                             // language icon
                             CircleAvatar(
                               backgroundColor: Theme.of(context).primaryColor.withOpacity(0.1),
-                              radius: 25.0,
+                              radius: 23.0,
                               child: Image.asset(
                                 _translationController.isEnglish ? 'images/English.png' : 'images/Khmer.png',
-                                height: 30.0,
-                                width: 30.0,
+                                height: 25.0,
+                                width: 25.0,
                               ),
                             ),
                 
@@ -249,7 +244,7 @@ class Settingscreen extends StatelessWidget {
                                 Text(
                                   'language'.tr,
                                   style: GoogleFonts.kantumruyPro(
-                                    fontSize: 18.0,
+                                    fontSize: 17.0,
                                     fontWeight: FontWeight.bold,
                                     color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                                   ),
@@ -269,6 +264,7 @@ class Settingscreen extends StatelessWidget {
                         // right content
                         Icon(
                           Icons.arrow_forward_rounded,
+                          size: 20.0,
                           color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                         )
                       ],
@@ -283,10 +279,7 @@ class Settingscreen extends StatelessWidget {
             GetBuilder<ThemeModeController>(
               builder: (_) {
                 return Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                    vertical: 15.0,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10.0),
                     color: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor.withOpacity(0.1),
@@ -302,9 +295,10 @@ class Settingscreen extends StatelessWidget {
                           // theme icon
                           CircleAvatar(
                             backgroundColor: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor.withOpacity(0.1),
-                            radius: 25.0,
+                            radius: 23.0,
                             child: Icon(
                               _themeModeController.isDark ? Icons.dark_mode : Icons.light_mode,
+                              size: 20.0,
                               color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                             ),
                           ),
@@ -317,7 +311,7 @@ class Settingscreen extends StatelessWidget {
                               Text(
                                 'theme'.tr,
                                 style: GoogleFonts.kantumruyPro(
-                                  fontSize: 18.0,
+                                  fontSize: 17.0,
                                   fontWeight: FontWeight.bold,
                                   color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                                 ),
@@ -365,10 +359,7 @@ class Settingscreen extends StatelessWidget {
                     _excelController.exportTransactionsToExcel();
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20.0,
-                      vertical: 15.0,
-                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10.0),
                       color: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor.withOpacity(0.1),
@@ -384,14 +375,15 @@ class Settingscreen extends StatelessWidget {
                             // catgori icons
                             CircleAvatar(
                               backgroundColor: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor.withOpacity(0.1),
-                              radius: 25.0,
+                              radius: 23.0,
                               child: _excelController.isExporting
                                 ? LoadingAnimationWidget.prograssiveDots(
                                     color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
-                                    size: 20.0,
+                                    size: 18.0,
                                   )
                                 : Icon(
                                   Icons.download,
+                                  size: 20.0,
                                   color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                                 )
                             ),
@@ -404,7 +396,7 @@ class Settingscreen extends StatelessWidget {
                                 Text(
                                   'export data'.tr,
                                   style: GoogleFonts.kantumruyPro(
-                                    fontSize: 18.0,
+                                    fontSize: 17.0,
                                     fontWeight: FontWeight.bold,
                                     color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                                   ),
@@ -424,6 +416,7 @@ class Settingscreen extends StatelessWidget {
                         // right content
                         Icon(
                           Icons.arrow_forward_rounded,
+                          size: 20.0,
                           color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                         )
                       ],

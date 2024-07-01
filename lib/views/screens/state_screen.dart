@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,8 +35,11 @@ class StateScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
+
+          // first section
           GetBuilder<StateController>(
             builder: (_) {
+
               // format selected month
               String formattedDate = _stateController.selectedDate.month == DateTime.now().month && _stateController.selectedDate.year == DateTime.now().year
                   ? 'this month'.tr
@@ -106,6 +111,8 @@ class StateScreen extends StatelessWidget {
               );
             },
           ),
+
+          // second sections
           Expanded(
             child: GetBuilder<StateController>(
               builder: (_) {
@@ -134,205 +141,174 @@ class StateScreen extends StatelessWidget {
                     ),
                   );
                 } else {
-                  Map<String, Map<String, double>> categoryTotals = _stateController.getTotalAmountByCategoriesForBothTypes();
 
+                  Map<String, Map<String, double>> categoryTotals = _stateController.getTotalAmountByCategoriesForBothTypes();
                   Map<String, double> expenseData = categoryTotals['Expense']!;
                   Map<String, double> incomeData = categoryTotals['Income']!;
 
                   return Column(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SizedBox(
-                              width: 350.0,
-                              // height: 350.0,
-                              child: PieChart(
-                                dataMap: {
-                                  ...expenseData.map((key, value) => MapEntry(key.tr, value)),
-                                  ...incomeData.map((key, value) => MapEntry(key.tr, value)),
-                                },
-                                // colorList: [
-                                //   Colors.pink,
-                                //   Theme.of(context).primaryColor,
-                                // ],
-                                centerWidget: Column(
-                                  children: [
-                                    Text(
-                                      'Income: \$ ${totalIncome.toStringAsFixed(2)}',
-                                      style: GoogleFonts.kantumruyPro(
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                      
+                      // scrolling
+                      Expanded(
+                        child: RefreshIndicator(
+                          onRefresh: () async {
+                            await _stateController.fetchTransactionsByMonthAndYear();
+                          },
+                          color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
+                          child: SingleChildScrollView(
+                            physics: const BouncingScrollPhysics(),
+                            child: Column(
+                              children: [
+
+                                // chart items
+                                const SizedBox(height: 5.0),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      SizedBox(
+                                        width: 350.0,
+                                        child: PieChart(
+                                          dataMap: {
+                                            ...expenseData.map((key, value) => MapEntry(key.tr, value)),
+                                            ...incomeData.map((key, value) => MapEntry(key.tr, value)),
+                                          },
+                                          // colorList: [
+                                          //   Colors.pink,
+                                          //   Theme.of(context).primaryColor,
+                                          // ],
+                                          centerWidget: Column(
+                                            children: [
+                                              Text(
+                                                'Income: \$ ${totalIncome.toStringAsFixed(2)}',
+                                                style: GoogleFonts.kantumruyPro(
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                              Text(
+                                                'Expense: \$ ${totalExpenses.toStringAsFixed(2)}',
+                                                style: GoogleFonts.kantumruyPro(
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          chartType: ChartType.disc,
+                                          chartValuesOptions: ChartValuesOptions(
+                                            chartValueBackgroundColor: Colors.white,
+                                            showChartValuesInPercentage: true,
+                                            showChartValues: true,
+                                            decimalPlaces: 2,
+                                            showChartValueBackground: true,
+                                            showChartValuesOutside: false,
+                                            chartValueStyle: GoogleFonts.kantumruyPro(
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.black,
+                                            ),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      'Expense: \$ ${totalExpenses.toStringAsFixed(2)}',
-                                      style: GoogleFonts.kantumruyPro(
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                chartType: ChartType.disc,
-                                chartValuesOptions: ChartValuesOptions(
-                                  chartValueBackgroundColor: Colors.white,
-                                  showChartValuesInPercentage: true,
-                                  showChartValues: true,
-                                  decimalPlaces: 2,
-                                  showChartValueBackground: true,
-                                  showChartValuesOutside: false,
-                                  chartValueStyle: GoogleFonts.kantumruyPro(
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
+                                    ],
                                   ),
                                 ),
-                              ),
-                            ),
 
-                            /*
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 15.0,
-                                      width: 15.0,
-                                      decoration: const BoxDecoration(
-                                        color: Colors.pink,
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 15.0),
-                                    Text(
-                                      '${'expense'.tr} (\$)',
-                                      style: GoogleFonts.kantumruyPro(
-                                        fontSize: 15.0,
-                                        color: Colors.pink,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      height: 15.0,
-                                      width: 15.0,
-                                      decoration: BoxDecoration(
-                                        color: Theme.of(context).primaryColor,
-                                        shape: BoxShape.circle,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 15.0),
-                                    Text(
-                                      '${'income'.tr} (\$)',
-                                      style: GoogleFonts.kantumruyPro(
-                                        fontSize: 15.0,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
-                                    ),
-                                  ],
+                                // transaction categories items
+                                const SizedBox(height: 10.0),
+                                GetBuilder<StateController>(
+                                  builder: (_) {
+                                    return ListView.builder(
+                                      shrinkWrap: true,
+                                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemCount: expenseData.length + incomeData.length,
+                                      itemBuilder: (context, index) {
+                                        bool isExpense = index < expenseData.length;
+                                        String category = isExpense
+                                            ? expenseData.keys.elementAt(index)
+                                            : incomeData.keys.elementAt(index - expenseData.length);
+                                        double amount = isExpense
+                                            ? expenseData[category]!
+                                            : incomeData[category]!;
+                                    
+                                        return Slidable(
+                                          endActionPane: ActionPane(
+                                            motion: const StretchMotion(),
+                                            dragDismissible: true,
+                                            children: [
+                                              SlidableAction(
+                                                borderRadius: const BorderRadius.only(
+                                                  topLeft: Radius.circular(10.0),
+                                                  bottomLeft: Radius.circular(10.0),
+                                                ),
+                                                autoClose: true,
+                                                onPressed: (context) {
+                                                  _stateController.deleteTransactionsByCategory(category: category);
+                                                },
+                                                icon: Icons.delete,
+                                                backgroundColor: _themeModeController.isDark
+                                                    ? Colors.white.withOpacity(0.1)
+                                                    : Colors.pink,
+                                                foregroundColor: Colors.white,
+                                                label: 'delete'.tr,
+                                              ),
+                                            ],
+                                          ),
+                                          child: Card(
+                                            elevation: 0,
+                                            color: _themeModeController.isDark
+                                                ? Colors.white.withOpacity(0.1)
+                                                : Theme.of(context).primaryColor.withOpacity(0.1),
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(10.0),
+                                            ),
+                                            child: ListTile(
+                                              title: Text(
+                                                category.tr,
+                                                style: GoogleFonts.kantumruyPro(
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: _themeModeController.isDark
+                                                      ? Colors.white
+                                                      : Theme.of(context).primaryColor,
+                                                ),
+                                              ),
+                                              trailing: Text(
+                                                isExpense
+                                                    ? '- \$ ${amount.toStringAsFixed(2)}'
+                                                    : '+ \$ ${amount.toStringAsFixed(2)}',
+                                                style: GoogleFonts.kantumruyPro(
+                                                  fontSize: 15.0,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: isExpense
+                                                      ? Colors.pink
+                                                      : _themeModeController.isDark
+                                                          ? Colors.white
+                                                          : Theme.of(context).primaryColor,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
                                 ),
                               ],
                             ),
-                            */
-                          ],
+                          ),
                         ),
                       ),
-                      Expanded(
-                        child: GetBuilder<StateController>(
-                          builder: (_) {
-                            return RefreshIndicator(
-                              onRefresh: () async {
-                                await _stateController.fetchTransactionsByMonthAndYear();
-                              },
-                              color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
-                              child: ListView.builder(
-                                padding: const EdgeInsets.all(15.0),
-                                physics: const BouncingScrollPhysics(),
-                                itemCount: expenseData.length + incomeData.length,
-                                itemBuilder: (context, index) {
-                                  bool isExpense = index < expenseData.length;
-                                  String category = isExpense
-                                      ? expenseData.keys.elementAt(index)
-                                      : incomeData.keys.elementAt(index - expenseData.length);
-                                  double amount = isExpense
-                                      ? expenseData[category]!
-                                      : incomeData[category]!;
-                              
-                                  return Slidable(
-                                    endActionPane: ActionPane(
-                                      motion: const StretchMotion(),
-                                      dragDismissible: true,
-                                      children: [
-                                        SlidableAction(
-                                          borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(10.0),
-                                            bottomLeft: Radius.circular(10.0),
-                                          ),
-                                          autoClose: true,
-                                          onPressed: (context) {
-                                            _stateController.deleteTransactionsByCategory(category: category);
-                                          },
-                                          icon: Icons.delete,
-                                          backgroundColor: _themeModeController.isDark
-                                              ? Colors.white.withOpacity(0.1)
-                                              : Colors.pink,
-                                          foregroundColor: Colors.white,
-                                          label: 'delete'.tr,
-                                        ),
-                                      ],
-                                    ),
-                                    child: Card(
-                                      elevation: 0,
-                                      color: _themeModeController.isDark
-                                          ? Colors.white.withOpacity(0.1)
-                                          : Theme.of(context).primaryColor.withOpacity(0.1),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10.0),
-                                      ),
-                                      child: ListTile(
-                                        title: Text(
-                                          category.tr,
-                                          style: GoogleFonts.kantumruyPro(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: _themeModeController.isDark
-                                                ? Colors.white
-                                                : Theme.of(context).primaryColor,
-                                          ),
-                                        ),
-                                        trailing: Text(
-                                          isExpense
-                                              ? '- \$ ${amount.toStringAsFixed(2)}'
-                                              : '+ \$ ${amount.toStringAsFixed(2)}',
-                                          style: GoogleFonts.kantumruyPro(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
-                                            color: isExpense
-                                                ? Colors.pink
-                                                : _themeModeController.isDark
-                                                    ? Colors.white
-                                                    : Theme.of(context).primaryColor,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ),
+                      
+                      // not scrolling
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
+                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [

@@ -176,7 +176,7 @@ class HomeScreen extends StatelessWidget {
                                     Text(
                                       'total expense'.tr,
                                       style: GoogleFonts.kantumruyPro(
-                                        fontSize: 18.0,
+                                        fontSize: 15.0,
                                         fontWeight: FontWeight.bold,
                                         color: Colors.pink,
                                       ),
@@ -214,7 +214,7 @@ class HomeScreen extends StatelessWidget {
                                     Text(
                                       'total income'.tr,
                                       style: GoogleFonts.kantumruyPro(
-                                        fontSize: 18.0,
+                                        fontSize: 15.0,
                                         fontWeight: FontWeight.bold,
                                         color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                                       ),
@@ -319,29 +319,30 @@ class HomeScreen extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(10.0),
                                       ),
                                       contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 3.0,
                                         horizontal: 15.0,
-                                        vertical: 10.0,
                                       ),
                                       leading: CircleAvatar(
-                                        radius: 25.0,
+                                        radius: 20.0,
                                         backgroundColor: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor.withOpacity(0.1),
                                         child: transaction.currencyType?.toLowerCase() == 'riel'
                                             ? Text(
                                                 '៛',
                                                 style: GoogleFonts.kantumruyPro(
-                                                  fontSize: 25.0,
+                                                  fontSize: 20.0,
                                                   color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                                                 ),
                                               )
                                             : Icon(
                                                 transaction.type == 'Expense' ? Icons.money_off : Icons.attach_money,
+                                                size: 20.0,
                                                 color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                                               ),
                                       ),
                                       title: Text(
                                         '${transaction.category?.tr}',
                                         style: GoogleFonts.kantumruyPro(
-                                          fontSize: 18.0,
+                                          fontSize: 15.0,
                                           fontWeight: FontWeight.bold,
                                           color: _themeModeController.isDark
                                               ? Colors.white
@@ -382,7 +383,7 @@ class HomeScreen extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor,
+        backgroundColor: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
         onPressed: () {
           showModalBottomSheet(
             isDismissible: true,
@@ -393,10 +394,10 @@ class HomeScreen extends StatelessWidget {
             },
           );
         },
-        child: const Center(
+        child: Center(
           child: Icon(
             Icons.add,
-            color: Colors.white,
+            color: _themeModeController.isDark ? Theme.of(context).primaryColor : Colors.white,
           ),
         ),
       ),
