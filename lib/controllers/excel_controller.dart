@@ -1,3 +1,4 @@
+// import statements
 import 'dart:io';
 import 'package:get/get.dart';
 import 'package:path_provider/path_provider.dart';
@@ -8,7 +9,6 @@ import 'package:pay_note/models/transaction_model.dart';
 import 'package:pay_note/services/transaction_service.dart';
 
 class ExcelController extends GetxController {
-
   final _transactionService = TransactionService();
   final _userController = Get.put(CurrentUserController());
 
@@ -42,7 +42,7 @@ class ExcelController extends GetxController {
   }
 
   // export data into excel file
-  Future<bool> exportTransactionsToExcel() async {
+  Future<void> exportTransactionsToExcel() async {
     try {
       isExporting = true;
       update();
@@ -85,12 +85,10 @@ class ExcelController extends GetxController {
       // share the Excel file
       await Share.shareXFiles(
         [XFile(fileName)],
-        text: 'Exported all transactions in account: ${_userController.currentUser!.email?? ''}',
+        text: 'Exported all transactions in account: ${_userController.currentUser!.email ?? ''}',
       );
-      return true;
     } catch (e) {
       print('Error exporting Excel file: $e');
-      return false;
     } finally {
       isExporting = false;
       update();

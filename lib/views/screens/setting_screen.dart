@@ -372,7 +372,7 @@ class Settingscreen extends StatelessWidget {
                         Row(
                           children: [
                 
-                            // catgori icons
+                            // catgory icons
                             CircleAvatar(
                               backgroundColor: _themeModeController.isDark ? Colors.white.withOpacity(0.1) : Theme.of(context).primaryColor.withOpacity(0.1),
                               radius: 23.0,
@@ -382,7 +382,7 @@ class Settingscreen extends StatelessWidget {
                                     size: 18.0,
                                   )
                                 : Icon(
-                                  Icons.download,
+                                  Icons.save_alt_rounded,
                                   size: 20.0,
                                   color: _themeModeController.isDark ? Colors.white : Theme.of(context).primaryColor,
                                 )
@@ -431,7 +431,7 @@ class Settingscreen extends StatelessWidget {
     );
   }
 
-  // change language
+  // change language alert
   Widget changeLanguages({
     required BuildContext context,
   }) {
